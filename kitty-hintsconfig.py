@@ -4,6 +4,7 @@ import yaml
 
 
 def config(file='~/.config/kitty/hints.yaml'):
+    file = os.path.expanduser(file)
     if os.path.isfile(file):
         with open(file, 'r') as f:
             try:
