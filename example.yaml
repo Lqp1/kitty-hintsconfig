@@ -1,0 +1,11 @@
+---
+links:
+  - regexp: '(https?://[^\s]*)'
+    link: '{}'
+  - regexp: 'JIRA: ([A-Z]+-[0-9]+)'
+    link: 'https://jira.mycompany.com/{}'
+markers:
+  - regexp: (error|warning)
+    marker: 1
+  - regexp: info
+    marker: 3
