@@ -18,9 +18,9 @@ def config(file='~/.config/kitty/hints.yaml'):
                 {'regexp': r'file://([^\s]*)', 'process': 'xdg-open {}'},
             ],
             'markers': [
-                {'regexp': 'error', 'marker': 1},
+                {'regexp': 'error', 'marker': 3},
                 {'regexp': 'warning', 'marker': 2},
-                {'regexp': 'info', 'marker': 3}
+                {'regexp': 'info', 'marker': 1}
             ]
         }
 

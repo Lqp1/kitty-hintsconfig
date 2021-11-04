@@ -6,6 +6,6 @@ links:
     link: 'https://jira.mycompany.com/{}'
 markers:
   - regexp: (error|warning)
-    marker: 1
-  - regexp: info
     marker: 3
+  - regexp: info
+    marker: 1

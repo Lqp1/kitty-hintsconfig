@@ -14,8 +14,11 @@ mapping.
 
 # Setup
 
-Clone this project.
-
+Clone this project; easiest is to clone in kitty config folder:
+```
+cd ~/.config/kitty
+git clone https://github.com/Lqp1/kitty-hintsconfig
+```
 Prior to its usage, install all dependencies:
 ```
 pip install --user -r requirements.txt
@@ -27,14 +30,14 @@ Marker regular expressions are case insensitive.
 You may need to set the colors for the 3 markers slot as you wish in your kitty
 configuration:
 ```
-mark1_background red
+mark1_background green
 mark2_background orange
-mark3_background green
+mark3_background red
 ```
 
 To use this tool to read markers, you can setup a mapping to toggle its usage:
 ```
-map f1 toggle_marker function /path/to/thescript/kitty-hintsconfig.py
+map f1 toggle_marker function kitty-hintsconfig/kitty-hintsconfig.py
 ```
 
 For each marker, you should define a `regexp` which is Python regexp, and a
@@ -46,7 +49,7 @@ Hints regular expressions are case sensitive.
 
 You'll need to add a mapping to open this script:
 ```
-map ctrl+shift+o kitten hints --customize-processing /path/to/thescript/kitty-hintsconfig.py
+map ctrl+shift+o kitten hints --customize-processing ~/.config/kitty/kitty-hintsconfig/kitty-hintsconfig.py
 ```
 
 For each hint, you should define a `regexp` which is Python regexp, and an
