@@ -3,7 +3,7 @@ kitty-hintsconfig
 
 # Summary
 
-Helps you build a centralized config for kitty for markers and hints.
+Helps you build a centralized config for [kitty](https://sw.kovidgoyal.net/kitty/) regarding markers and hints.
 
 There are two lists of items:
 - A list of regular expressions and marker number for markers.
