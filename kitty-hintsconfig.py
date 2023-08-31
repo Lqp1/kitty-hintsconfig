@@ -10,7 +10,7 @@ def config(file='~/.config/kitty/hints.yaml'):
             try:
                 return yaml.safe_load(f)
             except yaml.YAMLError as exc:
-                print(exc)
+                print(f"=> {exc}")
     else:  # simple default config
         return {
             'links': [
@@ -38,8 +38,7 @@ def mark(text, args, Mark, extra_cli_args, *a):
     for rule in config_links():
         for m in re.finditer(rule['regexp'], text):
             start, end = m.span()
-            print(m)
-            mark_text = m.groups()[0].replace('\n', '').replace('\0', '')
+            mark_text = text[start:end].replace('\n', '').replace('\0', '')
             if 'link' in rule:
                 link = rule['link'].format(mark_text)
                 data = {'link': link}
