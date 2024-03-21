@@ -14,7 +14,7 @@ def config(file='~/.config/kitty/hints.yaml'):
     else:  # simple default config
         return {
             'links': [
-                {'regexp': r'(https?://[^\s]*)', 'link': '{}'},
+                {'regexp': r'((www|http:|https:)+[^\s]+[\w])', 'link': '{}'},
                 {'regexp': r'file://([^\s]*)', 'process': 'xdg-open {}'},
             ],
             'markers': [
@@ -34,20 +34,23 @@ def config_markers():
 
 
 def mark(text, args, Mark, extra_cli_args, *a):
-    idx = 0
+    marks = [ m for m in _mark(text) ]
+    sorted_marks = sorted(marks, key=lambda m: m['start'])
+    return [Mark(idx, m['start'], m['end'], m['text'], m['data']) for idx, m in enumerate(sorted_marks)]
+
+
+def _mark(text):
     for rule in config_links():
         for m in re.finditer(rule['regexp'], text):
             start, end = m.span()
-            mark_text = text[start:end].replace('\n', '').replace('\0', '')
+            mark_text = m.group(1).replace('\n', '').replace('\0', '')
             if 'link' in rule:
                 link = rule['link'].format(mark_text)
                 data = {'link': link}
             if 'process' in rule:
                 process = rule['process'].format(mark_text)
                 data = {'process': process}
-
-            yield Mark(idx, start, end, mark_text, data)
-            idx += 1
+            yield {'start': start, 'end': end, 'text': m.group(0), 'data': data}
 
 
 def handle_result(args, data, target_window_id, boss, extra_cli_args, *a):
@@ -55,7 +58,7 @@ def handle_result(args, data, target_window_id, boss, extra_cli_args, *a):
     for m, g in zip(data['match'], data['groupdicts']):
         if m:
             matches.append(m), groupdicts.append(g)
-    for match, match_data in zip(matches, groupdicts):
+    for match_data in groupdicts:
         if 'link' in match_data:
             boss.open_url(match_data['link'])
         elif 'process' in match_data:
