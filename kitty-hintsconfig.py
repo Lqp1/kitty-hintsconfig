@@ -1,6 +1,18 @@
 import re
 import os
-import yaml
+try:
+    import yaml
+except:
+    # FIXME: Ugly hack on NixOS where it does not seem possible to override the Python interpreter used from Kitty
+    # Maybe I'm just bad to Nix things, any help appreciated here!
+    import subprocess
+    import sys
+    potential_packages = filter(lambda x: len(x) > 0,
+                                subprocess.check_output(['/run/current-system/sw/bin/python', '-c' ,'import sys; print("\\n".join(sys.path))'])\
+                                        .decode('utf8').split("\n"))
+    sys.path.extend(potential_packages)
+    import yaml
+
 
 
 def config(file='~/.config/kitty/hints.yaml'):
